@@ -22,7 +22,9 @@ searchBox.addListener("places_changed", () => {
       latitude: latitude,
       longitude: longitude,
     }),
-  }).then( response => response.json()).then( data => {
-      setWeatherData(data, place.formatted_address)
-  });
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      setWeatherData(data, place.formatted_address);
+    });
 });
