@@ -52,11 +52,11 @@ body{
     padding: 10px;
 }
 .status{
-    font-size: 3rem;
+    font-size: 1rem;
     font-weight: bold;
 }
 .location{
-    font-size: 2rem;
+    font-size: 1rem;
     margin-top: 10px;
 }
 
@@ -80,13 +80,13 @@ body{
     
 }
 .detail .title{
-    font-size: 2rem;
+    font-size: 0.7rem;
     flex-grow: 1;
     font-weight: bold;
     color: #777;
 }
 .detail .value{
-    font-size: 2rem;
+    font-size: 0.8rem;
     margin-top: 20px;
 
 }
@@ -97,7 +97,7 @@ body{
 }
 .city-search{
     margin-top: 40px;
-    font-size: 2rem;
+    font-size: 0.8rem;
     outline: none;
     border: 1px solid #777;
     border-radius: 5px;

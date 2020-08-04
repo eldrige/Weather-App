@@ -7,30 +7,29 @@ const searchBox = new google.maps.places.SearchBox(searchElement);
 // whwnever our search box has a place selected inside of it, this code will be executed
 searchBox.addListener("places_changed", () => {
   const place = searchBox.getPlaces()[0]; // select first place
-  if (place == null) return; // make sure it is null
+  // if (place == null) return; // make sure it is not null
   const latitude = place.geometry.location.lat(); // similar to nav.geo in plain JS
   const longitude = place.geometry.location.lng();
 
   // using this info, our data will be posted to our server, and fetch will actually fetch that data
   fetch("/weather", {
-    method: "POST", // to match the post we setup in our server.js express
+    method: "POST",
     headers: {
-      "Content-Type": "application/json", // we our sending json to the server
-      Accept: "application.json", // we will be retrieving json form the server
+      "Content-Type": "application/json",
+      Accept: "application/json",
     },
     body: JSON.stringify({
       latitude: latitude,
       longitude: longitude,
-    }), // send this to our server
-    // all of the above data is posted to our sever
+    }),
   })
-    .then((response) => response.json()) // convert our data to json
+    .then((res) => res.json())
     .then((data) => {
-      setWeatherData(data, place.formatted_address); //from the places api
-      console.log(data);
-    })
-    .catch((err) => console.log(`an error occured: ${err}`));
+      setWeatherData(data, place.formatted_address);
+    });
 });
+
+console.log("this is script.js in action");
 
 const locationElt = document.querySelector("[data-location]");
 const statusElt = document.querySelector("[data-status]");
@@ -40,7 +39,7 @@ const windElt = document.querySelector("[data-wind]");
 
 function setWeatherData(data, place) {
   locationElt.textContent = place;
-  statusElt.textContent = data.weather[0].description;
+  statusElt.textContent = data.weather.description;
   temperatureElt.textContent = data.main.temp;
   precipitationElt.textContent = data.main.humidity;
 }

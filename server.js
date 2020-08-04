@@ -9,7 +9,7 @@ const API_KEY = process.env.OPENWEATHER_API_KEY;
 const express = require("express");
 const axios = require("axios");
 // axios works similarly to fetch
-
+const port = 3000;
 const app = express();
 
 app.use(express.json());
@@ -21,52 +21,17 @@ app.use(express.static("public"));
 app.post("/weather", (req, res) => {
   const url = ` https://api.openweathermap.org/data/2.5/weather?lat=${req.body.latitude}&lon=${req.body.longitude}&appid=${API_KEY}`;
   axios({
-    url : url,
-    responseType: 'json'
-  }).then(data => res.json(data)) // this will send a json version of our data, back to the script.js
+    url: url,
+    responseType: "json",
+  })
+    .then((data) => {
+     console.log(res.json(data.data));
+    })
+    .catch((err) => console.log(`an unexpected error happened ${err}`));
+  // this will send a json version of our data, back to the script.js
   // console.log(req.body);
 });
 
-app.listen(3000, () => {
-  console.log("server started");
+app.listen(port, () => {
+  console.log(`server started on port ${port}`);
 });
-
-// {"coord": { "lon": 139,"lat": 35},
-//   "weather": [
-//     {
-//       "id": 800,
-//       "main": "Clear",
-//       "description": "clear sky",
-//       "icon": "01n"
-//     }
-//   ],
-//   "base": "stations",
-//   "main": {
-//     "temp": 281.52,
-//     "feels_like": 278.99,
-//     "temp_min": 280.15,
-//     "temp_max": 283.71,
-//     "pressure": 1016,
-//     "humidity": 93
-//   },
-//   "wind": {
-//     "speed": 0.47,
-//     "deg": 107.538
-//   },
-//   "clouds": {
-//     "all": 2
-//   },
-//   "dt": 1560350192,
-//   "sys": {
-//     "type": 3,
-//     "id": 2019346,
-//     "message": 0.0065,
-//     "country": "JP",
-//     "sunrise": 1560281377,
-//     "sunset": 1560333478
-//   },
-//   "timezone": 32400,
-//   "id": 1851632,
-//   "name": "Shuzenji",
-//   "cod": 200
-// }
